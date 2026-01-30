@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Sticker Dispenser</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="stage" aria-label="Digital Sticker Dispenser">
+    <div class="bg" aria-hidden="true"></div>
+
+    <section class="machine-wrap" aria-label="Sticker machine">
+      <img class="machine" src="assets/coindispenser.png" alt="Coin dispenser machine" />
+
+      <!-- Drop zone overlay: tweak CSS percentages to match your coin slot location -->
+      <div id="dropZone" class="drop-zone" aria-label="Coin slot drop area">
+        <div class="drop-hint" aria-hidden="true">drop coin</div>
+      </div>
+    </section>
+
+    <!-- Coin (draggable/tappable) -->
+    <button id="coinBtn" class="coin-btn" aria-label="Coin (drag or tap to insert)">
+      <img id="coin" class="coin" src="assets/coin.png" alt="Yen coin" draggable="false" />
+      <span class="coin-help">Drag or tap</span>
+    </button>
+
+    <div class="controls">
+      <button id="resetCoin" class="secondary">Reset coin</button>
+      <button id="myStickersBtn" class="secondary">My Stickers</button>
+      <button id="newSticker" class="primary">Dispense (test)</button>
+      <button id="muteBtn" class="secondary" title="Toggle sound">🔊</button>
+    </div>
+
+    <!-- Sticker output overlay: direct child of main for true viewport centering -->
+    <div class="output" aria-live="polite" aria-label="Sticker output">
+      <div class="output-inner">
+        <img id="stickerImg" class="sticker hidden" alt="Your sticker" />
+        <div class="sticker-meta hidden">
+          <div id="stickerLabel" class="sticker-label">You got a sticker!</div>
+          <div id="stickerIndex" class="sticker-index">0/13</div>
+          <a id="downloadBtn" class="download-btn" href="#" download="sticker.png">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collection modal -->
+    <div id="collectionModal" class="collection-modal hidden" role="dialog" aria-modal="true" aria-label="Sticker collection">
+      <div class="collection-backdrop" data-close></div>
+      <div class="collection-panel" role="document">
+        <header class="collection-header">
+          <h2 id="collectionTitle">My Stickers</h2>
+          <button id="closeCollection" aria-label="Close">✕</button>
+        </header>
+        <div class="collection-body">
+          <p class="collection-hint">Locked stickers are greyed out. Collect them by dispensing stickers.</p>
+          <div id="collectionGrid" class="collection-grid" tabindex="0" aria-label="Sticker grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio elements for sound effects -->
+    <audio id="coinSound" preload="auto">
+      <source src="assets/coin-insert.mp3" type="audio/mpeg">
+      <source src="assets/coin-insert.wav" type="audio/wav">
+    </audio>
+    <audio id="stickerSound" preload="auto">
+      <source src="assets/sticker-pop.mp3" type="audio/mpeg">
+      <source src="assets/sticker-pop.wav" type="audio/wav">
+    </audio>
+
+    <footer class="footer">
+      <span>✨ insert coin → receive sticker ✨</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
